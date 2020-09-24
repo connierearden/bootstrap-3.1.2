@@ -17,13 +17,17 @@
     <label for="password">Password</label>
     <input type="text" th:field="*{password}" id="password" placeholder="Password">
     <br/>
-<!--    <label for="roles">Roles</label>
-    <input type="text" th:field="*{roles}" id="roles" placeholder="Roles">
-    <br/>-->
+    <label th:for="roles">Roles </label>
+    <select multiple th:name="roles" size="3" th:id="roles" required>
+        <option disabled>Select roles</option>
+        <option th:each="role : ${allRoles}" th:value="${role}" th:text="${role.name}"></option>
+    </select>
+<!--    <label th:for="roles">Roles</label>
+    <select id="roles" th:field="*{roles}">
+        <option th:value="'ADMIN'" th:text="ADMIN"></option>
+        <option th:value="'USER'" th:text="USER"></option>
+    </select>-->
     <input type="submit" value="Update User">
-
-
-
 
 </form>
 </body>

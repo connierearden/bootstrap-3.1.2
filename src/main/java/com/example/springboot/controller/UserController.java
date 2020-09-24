@@ -1,6 +1,8 @@
 package com.example.springboot.controller;
 
+import com.example.springboot.model.Role;
 import com.example.springboot.model.User;
+import com.example.springboot.repository.RoleRepository;
 import com.example.springboot.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,10 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
 
+    @Autowired
+    private RoleRepository roleRepository;
     private final UserServiceImpl userService;
 
     @Autowired
@@ -50,12 +55,15 @@ public class UserController {
     public String updateUserForm(@PathVariable("id") Long id, Model model){
         User user = userService.findById(id);
         model.addAttribute("user", user);
+        Iterable<Role> allRoles = roleRepository.findAll();
+        model.addAttribute("allRoles", allRoles);
         return "user-update";
     }
 
     @PostMapping("/admin/update")
     public String updateUser(User user){
-        userService.updateUser(user);
+        //user.setRoles("USER");
+        userService.saveUser(user);
         return "redirect:/admin";
     }
 

@@ -36,9 +36,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public User saveUser(User user){
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.getOne(1L));
-        user.setRoles(roles);
         return userRepository.save(user);
     }
 
