@@ -15,7 +15,9 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="#" class="navbar-brand">JAVA Mentor</a>
+            <a class="navbar-brand">
+                <p><span th:text="${currentUser.firstName}"></span> with roles: <span th:text="${currentUser.roles}"></span></p>
+            </a>
         </div>
     </div>
 </nav>
@@ -163,7 +165,27 @@
                 </div>
             </div>
             <div class="tab-pane" id="lB">
-                <p>Howdy, I'm in Section B.</p>
+                <h1>User information page</h1>
+                <h3>About user</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">Password</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:object="${currentUser}">
+                        <td th:text="${currentUser.id}"></td>
+                        <td th:text="${currentUser.firstName}"></td>
+                        <td th:text="${currentUser.lastName}"></td>
+                        <td th:text="${currentUser.password}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button type="button"><a th:href="@{/logout}">Logout</a></button>
             </div>
         </div>
     </div>
