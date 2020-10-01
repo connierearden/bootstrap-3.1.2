@@ -7,9 +7,7 @@ import com.example.springboot.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -31,12 +29,8 @@ public class UserController {
     public String findAll(Model model){
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
+        model.addAttribute("user", new User());
         return "user-list";
-    }
-
-    @GetMapping("/admin/create")
-    public String createUserForm(User user){
-        return "user-create";
     }
 
     @PostMapping("/admin/create")
@@ -45,33 +39,21 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @GetMapping("admin/delete/{id}")
+    @PostMapping("/admin/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id){
         userService.deleteById(id);
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/update/{id}")
-    public String updateUserForm(@PathVariable("id") Long id, Model model){
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
-        Iterable<Role> allRoles = roleRepository.findAll();
-        model.addAttribute("allRoles", allRoles);
-        return "user-update";
-    }
-
-    @PostMapping("/admin/update")
+    @PostMapping("admin/update/")
     public String updateUser(User user){
-        //user.setRoles("USER");
         userService.saveUser(user);
-        return "redirect:/admin";
+        return "user-list";
     }
 
 
-/*    @GetMapping("/user")
-    public String userPageForm(User user){
-        return "user";
-    }*/
+
+
 
     @GetMapping("/user")
     public String userPage (Model model, Principal principal) {

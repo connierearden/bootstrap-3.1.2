@@ -1,28 +1,82 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>User</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>JS</title>
+    <!--      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Password</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:object="${user}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.firstName}"></td>
-        <td th:text="${user.lastName}"></td>
-        <td th:text="${user.password}"></td>
-    </tr>
-    </tbody>
-</table>
-<button type="button"><a th:href="@{/logout}">Logout</a></button>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">JAVA Mentor</a>
+        </div>
+    </div>
+</nav>
+
+<div class="row">
+    <div id='myTab' class="tabbable tabs-left">
+        <ul class="nav nav-tabs nav-pills nav-stacked col-md-2">
+            <li class="active"><a href="#lA" data-toggle="tab">USER</a></li>
+        </ul>
+
+        <div class="container">
+            <div class="tab-content col-md-10">
+                <div class="tab-pane active" id="lA">
+                    <h1>User information page</h1>
+                    <h3>All users</h3>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">First name</th>
+                            <th scope="col">Last name</th>
+                            <th scope="col">Password</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:object="${user}">
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.firstName}"></td>
+                            <td th:text="${user.lastName}"></td>
+                            <td th:text="${user.password}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="button"><a th:href="@{/logout}">Logout</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+    $('#myModal').on('show.bs.modal', function (event) {
+        // получить кнопку, которая его открыло
+        var button = $(event.relatedTarget)
+        // извлечь информацию из атрибута data-content
+        var content = button.data('content')
+        console.log(content)
+        // вывести эту информацию в элемент, имеющий id="content"
+        $(this).find('#content').text(content);
+    })
+    /*
+        let table = $("#idUser").val()
+        let wind = document.getElementsByClassName("ooo")[0];
+        wind.value = table;*/
+</script>
+
+
 </body>
 </html>
