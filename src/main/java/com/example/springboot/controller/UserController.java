@@ -4,6 +4,7 @@ import com.example.springboot.model.Role;
 import com.example.springboot.model.User;
 import com.example.springboot.repository.RoleRepository;
 import com.example.springboot.service.UserServiceImpl;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +36,13 @@ public class UserController {
         return "user-list";
     }
 
+/*    @GetMapping("/admin/{id}")
+    public String updateUserForm(@PathVariable("id") Long id, Model model){
+        User upUser = userService.findById(id);
+        model.addAttribute("user", upUser);
+        return "user-list";
+    }*/
+
     @PostMapping("/admin/create")
     public String createUser(User user){
         userService.saveUser(user);
@@ -47,10 +55,10 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @PostMapping("admin/update/")
+    @PostMapping("/admin/update")
     public String updateUser(User user){
         userService.saveUser(user);
-        return "user-list";
+        return "redirect:/admin";
     }
 
 

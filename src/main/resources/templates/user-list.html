@@ -57,10 +57,10 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="user : ${users}">
-                                        <th th:id="'i'+${user.id}" th:value="${user.id}" th:text="${user.id}"></th>
-                                        <td th:text="${user.firstName}"></td>
-                                        <td th:text="${user.lastName}"></td>
-                                        <td th:text="${user.password}"></td>
+                                        <th  id="user-id" th:value="${user.id}" th:text="${user.id}"></th>    <!--th:id="'i'+${user.id}"-->
+                                        <td  id="user-fname" th:text="${user.firstName}"></td>
+                                        <td id="user-lname" th:text="${user.lastName}"></td>
+                                        <td id="user-pass" th:text="${user.password}"></td>
                                         <td th:text="${user.roles}"></td>
 
                                         <!-- <td><a th:href="@{admin/update/{id}(id=${user.id})}">Edit</a></td>
@@ -77,25 +77,25 @@
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <form action="#" th:action="@{/admin/create}" th:object="${user}" method="post">
+                                                        <form action="#" th:action="@{/admin/update}" th:object="${user}" method="post">
                                                             <div class="modal-body">
 
                                                                 <div class="form-group">
                                                                     <label for="id">ID</label>
-                                                                    <input type="number" th:value="*{id}" class="form-control ooo" id="id" placeholder="ID">
+                                                                    <input readonly type="number" th:field="*{id}" class="form-control for-user-id" id="id" placeholder="ID">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="firstName">First name</label>
-                                                                    <input type="text"  th:field="*{firstName}"  class="form-control" id="firstName" placeholder="First name">
+                                                                    <input type="text"  th:field="*{firstName}"  class="form-control for-user-fname" id="firstName" placeholder="First name">
                                                                     <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="lastName">Last name</label>
-                                                                    <input type="text"  th:field="*{lastName}" class="form-control" id="lastName" placeholder="Last name">
+                                                                    <input type="text"  th:field="*{lastName}" class="form-control for-user-lname" id="lastName" placeholder="Last name">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="password">Age</label>
-                                                                    <input type="text"  th:field="*{password}" class="form-control" id="password" placeholder="Password">
+                                                                    <input type="text"  th:field="*{password}" class="form-control for-user-pass" id="password" placeholder="Password">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="roles">Roles</label>
@@ -206,10 +206,50 @@
         // вывести эту информацию в элемент, имеющий id="content"
         $(this).find('#content').text(content);
     })
-    /*
-        let table = $("#idUser").val()
+
+/*        let table = $("#idUser").val()
         let wind = document.getElementsByClassName("ooo")[0];
         wind.value = table;*/
+
+/*    var table = document.getElementById("i1").innerHTML
+    console.log(table)
+    var wind = document.getElementsByClassName("ooo")[0];
+    console.log(wind)
+    wind.value = table;*/
+
+
+    var meanID = document.querySelectorAll('#user-id');
+    var meanFName = document.querySelectorAll('#user-fname');
+    var meanLName = document.querySelectorAll('#user-lname');
+    var meanPass = document.querySelectorAll('#user-pass');
+    var tableID = []
+    var tableFName = []
+    var tableLName = []
+    var tablePass = []
+
+    Array.prototype.forEach.call(meanID, function(td) {
+        tableID.push(td.innerHTML)
+    });
+    Array.prototype.forEach.call(meanFName, function(td) {
+        tableFName.push(td.innerHTML)
+    });
+    Array.prototype.forEach.call(meanLName, function(td) {
+        tableLName.push(td.innerHTML)
+    });
+    Array.prototype.forEach.call(meanPass, function(td) {
+        tablePass.push(td.innerHTML)
+    });
+
+    var windID = document.getElementsByClassName("for-user-id");
+    var windFName = document.getElementsByClassName("for-user-fname");
+    var windLName = document.getElementsByClassName("for-user-lname");
+    var windPass = document.getElementsByClassName("for-user-pass");
+    for(var i = 0; i<tableID.length; i++) {
+        windID[i].value = tableID[i];
+        windFName[i].value = tableFName[i];
+        windLName[i].value = tableLName[i];
+        windPass[i].value = tablePass[i];
+    }
 </script>
 
 
